@@ -1,0 +1,42 @@
+{
+  "connection": "default",
+  "collectionName": "publication",
+  "info": {
+    "name": "publication",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "content": {
+      "type": "text"
+    },
+    "author": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "article",
+        "rapport",
+        "direction",
+        "divers"
+      ],
+      "type": "enumeration"
+    },
+    "users": {
+      "collection": "user",
+      "via": "publication",
+      "plugin": "users-permissions"
+    }
+  }
+}

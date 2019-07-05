@@ -1,0 +1,812 @@
+input createEventInput {
+  data: EventInput
+}
+
+type createEventPayload {
+  event: Event
+}
+
+input createPublicationInput {
+  data: PublicationInput
+}
+
+type createPublicationPayload {
+  publication: Publication
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input createSubscriberInput {
+  data: SubscriberInput
+}
+
+type createSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""
+The `DateTime` scalar represents a date and time following the ISO 8601 standard
+"""
+scalar DateTime
+
+input deleteEventInput {
+  where: InputID
+}
+
+type deleteEventPayload {
+  event: Event
+}
+
+input deletePublicationInput {
+  where: InputID
+}
+
+type deletePublicationPayload {
+  publication: Publication
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteSubscriberInput {
+  where: InputID
+}
+
+type deleteSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+input editEventInput {
+  title: String
+  date: DateTime
+  description: String
+  thumbnail: ID
+  location: String
+  users: [ID]
+}
+
+input editFileInput {
+  name: String
+  hash: String
+  sha256: String
+  ext: String
+  mime: String
+  size: String
+  url: String
+  provider: String
+  public_id: String
+  related: [ID]
+}
+
+input editPublicationInput {
+  title: String
+  image: ID
+  content: String
+  author: String
+  type: ENUM_PUBLICATION_TYPE
+  users: [ID]
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+input editSubscriberInput {
+  email: String
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  event: ID
+  publication: ID
+}
+
+enum ENUM_PUBLICATION_TYPE {
+  article
+  rapport
+  direction
+  divers
+}
+
+type Event {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String
+  date: DateTime
+  description: String
+  thumbnail: UploadFile
+  location: String
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type EventAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type EventConnection {
+  values: [Event]
+  groupBy: EventGroupBy
+  aggregate: EventAggregator
+}
+
+type EventConnection_id {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionCreatedAt {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventConnectionDate {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventConnectionDescription {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionId {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionLocation {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionThumbnail {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionTitle {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionUpdatedAt {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventGroupBy {
+  _id: [EventConnection_id]
+  id: [EventConnectionId]
+  createdAt: [EventConnectionCreatedAt]
+  updatedAt: [EventConnectionUpdatedAt]
+  title: [EventConnectionTitle]
+  date: [EventConnectionDate]
+  description: [EventConnectionDescription]
+  thumbnail: [EventConnectionThumbnail]
+  location: [EventConnectionLocation]
+}
+
+input EventInput {
+  title: String
+  date: DateTime
+  description: String
+  thumbnail: ID
+  location: String
+  users: [ID]
+}
+
+input FileInput {
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related: [ID]
+}
+
+input InputID {
+  id: ID!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""The `Long` scalar type represents 52-bit integers"""
+scalar Long
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Event | createEventPayload | updateEventPayload | deleteEventPayload | EventConnection | EventAggregator | EventGroupBy | EventConnection_id | EventConnectionId | EventConnectionCreatedAt | EventConnectionUpdatedAt | EventConnectionTitle | EventConnectionDate | EventConnectionDescription | EventConnectionThumbnail | EventConnectionLocation | Publication | createPublicationPayload | updatePublicationPayload | deletePublicationPayload | PublicationConnection | PublicationAggregator | PublicationGroupBy | PublicationConnection_id | PublicationConnectionId | PublicationConnectionCreatedAt | PublicationConnectionUpdatedAt | PublicationConnectionTitle | PublicationConnectionImage | PublicationConnectionContent | PublicationConnectionAuthor | PublicationConnectionType | Subscriber | createSubscriberPayload | updateSubscriberPayload | deleteSubscriberPayload | SubscriberConnection | SubscriberAggregator | SubscriberGroupBy | SubscriberConnection_id | SubscriberConnectionId | SubscriberConnectionCreatedAt | SubscriberConnectionUpdatedAt | SubscriberConnectionEmail | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionEvent | UsersPermissionsUserConnectionPublication
+
+type Mutation {
+  createEvent(input: createEventInput): createEventPayload
+  updateEvent(input: updateEventInput): updateEventPayload
+  deleteEvent(input: deleteEventInput): deleteEventPayload
+  createPublication(input: createPublicationInput): createPublicationPayload
+  updatePublication(input: updatePublicationInput): updatePublicationPayload
+  deletePublication(input: deletePublicationInput): deletePublicationPayload
+  createSubscriber(input: createSubscriberInput): createSubscriberPayload
+  updateSubscriber(input: updateSubscriberInput): updateSubscriberPayload
+  deleteSubscriber(input: deleteSubscriberInput): deleteSubscriberPayload
+
+  """Create a new role"""
+  createRole(input: createRoleInput): createRolePayload
+
+  """Update an existing role"""
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """Delete an existing role"""
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """Create a new user"""
+  createUser(input: createUserInput): createUserPayload
+
+  """Update an existing user"""
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """Delete an existing user"""
+  deleteUser(input: deleteUserInput): deleteUserPayload
+  upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
+}
+
+type Publication {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String
+  image: UploadFile
+  content: String
+  author: String
+  type: ENUM_PUBLICATION_TYPE
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type PublicationAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type PublicationConnection {
+  values: [Publication]
+  groupBy: PublicationGroupBy
+  aggregate: PublicationAggregator
+}
+
+type PublicationConnection_id {
+  key: ID
+  connection: PublicationConnection
+}
+
+type PublicationConnectionAuthor {
+  key: String
+  connection: PublicationConnection
+}
+
+type PublicationConnectionContent {
+  key: String
+  connection: PublicationConnection
+}
+
+type PublicationConnectionCreatedAt {
+  key: DateTime
+  connection: PublicationConnection
+}
+
+type PublicationConnectionId {
+  key: ID
+  connection: PublicationConnection
+}
+
+type PublicationConnectionImage {
+  key: ID
+  connection: PublicationConnection
+}
+
+type PublicationConnectionTitle {
+  key: String
+  connection: PublicationConnection
+}
+
+type PublicationConnectionType {
+  key: String
+  connection: PublicationConnection
+}
+
+type PublicationConnectionUpdatedAt {
+  key: DateTime
+  connection: PublicationConnection
+}
+
+type PublicationGroupBy {
+  _id: [PublicationConnection_id]
+  id: [PublicationConnectionId]
+  createdAt: [PublicationConnectionCreatedAt]
+  updatedAt: [PublicationConnectionUpdatedAt]
+  title: [PublicationConnectionTitle]
+  image: [PublicationConnectionImage]
+  content: [PublicationConnectionContent]
+  author: [PublicationConnectionAuthor]
+  type: [PublicationConnectionType]
+}
+
+input PublicationInput {
+  title: String
+  image: ID
+  content: String
+  author: String
+  type: ENUM_PUBLICATION_TYPE
+  users: [ID]
+}
+
+type Query {
+  event(id: ID!): Event
+  events(sort: String, limit: Int, start: Int, where: JSON): [Event]
+  eventsConnection(sort: String, limit: Int, start: Int, where: JSON): EventConnection
+  publication(id: ID!): Publication
+  publications(sort: String, limit: Int, start: Int, where: JSON): [Publication]
+  publicationsConnection(sort: String, limit: Int, start: Int, where: JSON): PublicationConnection
+  subscriber(id: ID!): Subscriber
+  subscribers(sort: String, limit: Int, start: Int, where: JSON): [Subscriber]
+  subscribersConnection(sort: String, limit: Int, start: Int, where: JSON): SubscriberConnection
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+  role(id: ID!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+  user(id: ID!): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  me: UsersPermissionsMe
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+type Subscriber {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String
+}
+
+type SubscriberAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type SubscriberConnection {
+  values: [Subscriber]
+  groupBy: SubscriberGroupBy
+  aggregate: SubscriberAggregator
+}
+
+type SubscriberConnection_id {
+  key: ID
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionCreatedAt {
+  key: DateTime
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionEmail {
+  key: String
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionId {
+  key: ID
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionUpdatedAt {
+  key: DateTime
+  connection: SubscriberConnection
+}
+
+type SubscriberGroupBy {
+  _id: [SubscriberConnection_id]
+  id: [SubscriberConnectionId]
+  createdAt: [SubscriberConnectionCreatedAt]
+  updatedAt: [SubscriberConnectionUpdatedAt]
+  email: [SubscriberConnectionEmail]
+}
+
+input SubscriberInput {
+  email: String
+}
+
+input updateEventInput {
+  where: InputID
+  data: editEventInput
+}
+
+type updateEventPayload {
+  event: Event
+}
+
+input updatePublicationInput {
+  where: InputID
+  data: editPublicationInput
+}
+
+type updatePublicationPayload {
+  publication: Publication
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateSubscriberInput {
+  where: InputID
+  data: editSubscriberInput
+}
+
+type updateSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type UploadFile {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UploadFileAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UploadFileConnection {
+  values: [UploadFile]
+  groupBy: UploadFileGroupBy
+  aggregate: UploadFileAggregator
+}
+
+type UploadFileConnection_id {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionExt {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHash {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionId {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionMime {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionName {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionPublic_id {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSha256 {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSize {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUpdatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileGroupBy {
+  _id: [UploadFileConnection_id]
+  id: [UploadFileConnectionId]
+  createdAt: [UploadFileConnectionCreatedAt]
+  updatedAt: [UploadFileConnectionUpdatedAt]
+  name: [UploadFileConnectionName]
+  hash: [UploadFileConnectionHash]
+  sha256: [UploadFileConnectionSha256]
+  ext: [UploadFileConnectionExt]
+  mime: [UploadFileConnectionMime]
+  size: [UploadFileConnectionSize]
+  url: [UploadFileConnectionUrl]
+  provider: [UploadFileConnectionProvider]
+  public_id: [UploadFileConnectionPublic_id]
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  event: ID
+  publication: ID
+}
+
+type UsersPermissionsMe {
+  _id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  _id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+type UsersPermissionsPermission {
+  _id: ID!
+  id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  _id: ID!
+  id: ID!
+  name: String!
+  description: String
+  type: String
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsRoleAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsRoleConnection {
+  values: [UsersPermissionsRole]
+  groupBy: UsersPermissionsRoleGroupBy
+  aggregate: UsersPermissionsRoleAggregator
+}
+
+type UsersPermissionsRoleConnection_id {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionDescription {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionId {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionName {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionType {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleGroupBy {
+  _id: [UsersPermissionsRoleConnection_id]
+  id: [UsersPermissionsRoleConnectionId]
+  name: [UsersPermissionsRoleConnectionName]
+  description: [UsersPermissionsRoleConnectionDescription]
+  type: [UsersPermissionsRoleConnectionType]
+}
+
+type UsersPermissionsUser {
+  _id: ID!
+  id: ID!
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+  event: Event
+  publication: Publication
+}
+
+type UsersPermissionsUserAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsUserConnection {
+  values: [UsersPermissionsUser]
+  groupBy: UsersPermissionsUserGroupBy
+  aggregate: UsersPermissionsUserAggregator
+}
+
+type UsersPermissionsUserConnection_id {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionBlocked {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionConfirmed {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionEmail {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionEvent {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionId {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionProvider {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionPublication {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionRole {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUsername {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserGroupBy {
+  _id: [UsersPermissionsUserConnection_id]
+  id: [UsersPermissionsUserConnectionId]
+  username: [UsersPermissionsUserConnectionUsername]
+  email: [UsersPermissionsUserConnectionEmail]
+  provider: [UsersPermissionsUserConnectionProvider]
+  confirmed: [UsersPermissionsUserConnectionConfirmed]
+  blocked: [UsersPermissionsUserConnectionBlocked]
+  role: [UsersPermissionsUserConnectionRole]
+  event: [UsersPermissionsUserConnectionEvent]
+  publication: [UsersPermissionsUserConnectionPublication]
+}
