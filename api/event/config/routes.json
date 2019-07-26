@@ -43,7 +43,7 @@
     {
       "method": "DELETE",
       "path": "/events/:_id",
-      "handler": "Event.destroy",
+      "handler": "Event.delete",
       "config": {
         "policies": []
       }

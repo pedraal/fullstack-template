@@ -43,7 +43,7 @@
     {
       "method": "DELETE",
       "path": "/publications/:_id",
-      "handler": "Publication.destroy",
+      "handler": "Publication.delete",
       "config": {
         "policies": []
       }

@@ -1,0 +1,34 @@
+{
+  "connection": "default",
+  "collectionName": "comment",
+  "info": {
+    "name": "comment",
+    "description": ""
+  },
+  "options": {
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "attributes": {
+    "publication": {
+      "model": "publication",
+      "via": "comments"
+    },
+    "content": {
+      "required": true,
+      "type": "text",
+      "unique": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "user": {
+      "model": "user",
+      "via": "comments",
+      "plugin": "users-permissions"
+    }
+  }
+}

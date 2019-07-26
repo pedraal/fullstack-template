@@ -6,37 +6,38 @@
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "attributes": {
     "title": {
+      "unique": true,
+      "required": true,
+      "type": "string"
+    },
+    "content": {
+      "required": true,
+      "type": "text"
+    },
+    "author": {
       "type": "string",
-      "maxLength": 40
+      "required": true
     },
     "image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": true
     },
-    "content": {
-      "type": "text"
+    "publicationtype": {
+      "model": "publicationtype",
+      "via": "publications"
     },
-    "author": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "article",
-        "rapport",
-        "direction",
-        "divers"
-      ],
-      "type": "enumeration"
-    },
-    "users": {
-      "collection": "user",
-      "via": "publication",
-      "plugin": "users-permissions"
+    "comments": {
+      "collection": "comment",
+      "via": "publication"
     }
   }
 }

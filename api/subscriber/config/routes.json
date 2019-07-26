@@ -43,7 +43,7 @@
     {
       "method": "DELETE",
       "path": "/subscribers/:_id",
-      "handler": "Subscriber.destroy",
+      "handler": "Subscriber.delete",
       "config": {
         "policies": []
       }

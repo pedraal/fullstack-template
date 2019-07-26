@@ -1,35 +1,42 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "event",
   "info": {
     "name": "event",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "attributes": {
     "title": {
+      "unique": true,
+      "required": true,
       "type": "string"
     },
-    "date": {
-      "type": "date"
+    "location": {
+      "required": true,
+      "type": "string"
     },
     "description": {
+      "required": true,
       "type": "text"
     },
     "thumbnail": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": true
     },
-    "location": {
-      "type": "string"
+    "date": {
+      "type": "date"
     },
-    "users": {
-      "collection": "user",
-      "via": "event",
-      "plugin": "users-permissions"
+    "eventattempts": {
+      "collection": "eventattempt",
+      "via": "event"
     }
   }
 }

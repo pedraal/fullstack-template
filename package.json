@@ -1,15 +1,14 @@
 {
-  "name": "server",
+  "name": "api.pedraal.dev",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application.",
+  "description": "API system using Strapi for my personnal website (pedraal.dev)",
   "main": "./server.js",
   "scripts": {
-    "setup": "cd admin && npm run setup",
-    "start": "node server.js",
-    "strapi": "node_modules/strapi/bin/strapi.js",
-    "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
-    "postinstall": "node node_modules/strapi/lib/utils/post-install.js"
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -20,25 +19,32 @@
   },
   "dependencies": {
     "lodash": "^4.17.5",
-    "strapi": "3.0.0-alpha.26.2",
-    "strapi-hook-mongoose": "3.0.0-alpha.26.2",
-    "strapi-provider-upload-aws-s3": "^3.0.0-alpha.26.2",
-    "strapi-utils": "3.0.0-alpha.26.2"
+    "strapi": "3.0.0-beta.13",
+    "strapi-admin": "3.0.0-beta.13",
+    "strapi-hook-mongoose": "3.0.0-beta.13",
+    "strapi-plugin-content-manager": "3.0.0-beta.13",
+    "strapi-plugin-content-type-builder": "3.0.0-beta.13",
+    "strapi-plugin-documentation": "^3.0.0-beta.13",
+    "strapi-plugin-email": "3.0.0-beta.13",
+    "strapi-plugin-graphql": "^3.0.0-beta.13",
+    "strapi-plugin-settings-manager": "3.0.0-beta.13",
+    "strapi-plugin-upload": "3.0.0-beta.13",
+    "strapi-plugin-users-permissions": "3.0.0-beta.13",
+    "strapi-utils": "3.0.0-beta.13"
   },
   "author": {
     "name": "pedraal",
-    "email": "",
-    "url": ""
+    "email": "pgolfier.pro@gmail.com",
+    "url": "https://api.pedraal.dev"
   },
   "maintainers": [
     {
       "name": "pedraal",
-      "email": "",
-      "url": ""
+      "email": "pgolfier.pro@gmail.com",
+      "url": "https://api.pedraal.dev"
     }
   ],
   "strapi": {
-    "packageManager": "npm",
     "uuid": "6e3b33ae-98c7-43c6-a677-c37328db7bec"
   },
   "engines": {

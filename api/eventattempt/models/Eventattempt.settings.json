@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "eventattempt",
+  "info": {
+    "name": "eventattempt",
+    "description": ""
+  },
+  "options": {
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "attributes": {
+    "event": {
+      "model": "event",
+      "via": "eventattempts"
+    },
+    "user": {
+      "model": "user",
+      "via": "eventattempts",
+      "plugin": "users-permissions"
+    },
+    "checker": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}
